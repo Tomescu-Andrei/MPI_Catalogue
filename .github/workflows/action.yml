@@ -15,28 +15,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: List directory structure
+        run: ls -R  # Vezi unde sunt fișierele
+
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.3.0
         with:
-          dotnet-version: 6.0.x  # Schimbă versiunea dacă folosești alta (ex. 7.0.x)
-
-      - name: Display .NET version
-        run: dotnet --version
+          dotnet-version: 6.0.x  # Schimbă dacă ai altă versiune .NET
 
       - name: Restore dependencies
-        run: dotnet restore BlazorApp/BlazorApp.sln  # Modifică cu calea corectă
+        run: dotnet restore Catalog/Catalog.sln
 
       - name: Build project
-        run: dotnet build BlazorApp/BlazorApp.sln --configuration Release --no-restore
+        run: dotnet build Catalog/Catalog.sln --configuration Release --no-restore
 
       - name: Run tests
-        run: dotnet test BlazorApp/BlazorApp.sln --configuration Release --no-restore --verbosity normal
+        run: dotnet test Catalog/Catalog.sln --configuration Release --no-restore --verbosity normal
 
       - name: Publish application
-        run: dotnet publish BlazorApp/BlazorApp.sln --configuration Release --no-restore --output publish/
+        run: dotnet publish Catalog/Catalog.sln --configuration Release --no-restore --output Catalog/publish/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: published-app
-          path: publish/
+          path: Catalog/publish/
